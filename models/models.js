@@ -11,3 +11,7 @@ var postSchema = new mongoose.Schema({
     created_at: {type: Date, default: Date.now},
     text: String
 });
+
+//register a User and Post model with mongoose
+mongoose.model('User', userSchema);
+mongoose.model('Post', postSchema);
