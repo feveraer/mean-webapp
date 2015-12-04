@@ -12,6 +12,7 @@ var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');
 //connect to mongoDB
 mongoose.connect('mongodb://localhost/shoutbox');
+
 var app = express();
 
 // view engine setup
@@ -30,6 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Initialize models
+require('./models/models.js');
 
 // Initialize Passport
 var initPassport = require('./passport-init');
