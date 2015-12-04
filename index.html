@@ -5,8 +5,16 @@
 	<script src="app.js"></script>
 </head>
 <body ng-app="Shoutbox" ng-controller="MainCtrl">
-	<div>
-		{{test}}
+	<div id="main">
+		<form>
+			<input type="text" placeholder="Your name" />
+			<textarea required maxlength="200" rows="3" placeholder="Say something"></textarea>
+			<input class="button" type="submit" value="Shout!">
+		</form>
+		<div id="post-stream">
+			<h3>Shout feed</h3>
+			<!-- to be populated by Angular -->
+		</div>
 	</div>
 </body>
 </html>
