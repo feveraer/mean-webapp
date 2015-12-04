@@ -23,15 +23,15 @@ router.route('/posts/:id')
 
     //create
     .put(function(req,res){
-    	return res.send({message:'TODO modify an existing post by using param ' + req.param.id});
+    	return res.send({message:'TODO modify an existing post by using param ' + req.params.id});
     })
 
     .get(function(req,res){
-    	return res.send({message:'TODO get an existing post by using param ' + req.param.id});
+    	return res.send({message:'TODO get an existing post by using param ' + req.params.id});
     })
 
     .delete(function(req,res){
-    	return res.send({message:'TODO delete an existing post by using param ' + req.param.id});
+    	return res.send({message:'TODO delete an existing post by using param ' + req.params.id});
     });
 
 
