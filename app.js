@@ -7,11 +7,14 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var api = require('./routes/api');
-var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');
 //connect to mongoDB
 mongoose.connect('mongodb://localhost/shoutbox');
+// Initialize models
+require('./models/models.js');
+
+var api = require('./routes/api');
+var authenticate = require('./routes/authenticate')(passport);
 
 var app = express();
 
@@ -31,9 +34,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Initialize models
-require('./models/models.js');
 
 // Initialize Passport
 var initPassport = require('./passport-init');
