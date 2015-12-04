@@ -35,8 +35,8 @@ module.exports = function(passport){
             return done('Invalid password for ' + username, false);
         }
 
-        console.log('Invalid password '+username);
-        return done(null, false);
+        console.log('Successfully signed in');
+        return done(null, users[username]);
     }));
 
     passport.use('signup', new LocalStrategy({
