@@ -1,4 +1,4 @@
-var app = angular.module('Shoutbox', ['ngRoute']).run(function($http, $rootScope) {
+var app = angular.module('Shoutbox', ['ngRoute', 'ngResource']).run(function($http, $rootScope) {
   $rootScope.authenticated = false;
   $rootScope.current_user = '';
 
@@ -27,18 +27,27 @@ app.config(function($routeProvider){
       templateUrl: 'register.html',
       controller: 'authController'
     });
+  });
+
+//use $resource in postService factory, so we don't
+//have to manually call out to our endpoint with each type of request
+app.factory('postService', function($resource){
+  return $resource('/api/posts/:id');
 });
 
-app.controller('mainController', function($scope){
-		$scope.posts = [];
-		$scope.newPost = {created_by: '', text: '', created_at: ''};
+app.controller('mainController', function($rootScope, $scope, postService){
+  $scope.posts = postService.query();
+  $scope.newPost = {created_by: '', text: '', created_at: ''};
 
-		$scope.post = function(){
-			$scope.newPost.created_at = Date.now();
-			$scope.posts.push($scope.newPost);
-			$scope.newPost = {created_by: '', text: '', created_at: ''};
-		};
-	});
+  $scope.post = function(){
+   $scope.newPost.created_by = $rootScope.current_user;
+   $scope.newPost.created_at = Date.now();
+   postService.save($scope.newPost, function(){
+    $scope.posts = postService.query();
+    $scope.newPost = {created_by: '', text: '', created_at: ''};
+  });
+ };
+});
 
 app.controller('authController', function($scope, $http, $rootScope, $location){
   $scope.user = {username: '', password: ''};
