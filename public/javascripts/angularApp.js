@@ -1,6 +1,13 @@
 var app = angular.module('Shoutbox', ['ngRoute']).run(function($rootScope) {
   $rootScope.authenticated = false;
   $rootScope.current_user = '';
+
+  //add to $rootScope so users can logout straight from nav
+  $rootScope.signout = function(){
+    $http.get('auth/signout');
+    $rootScope.authenticated = false;
+    $rootScope.current_user = '';
+  };
 });
 
 app.config(function($routeProvider){
