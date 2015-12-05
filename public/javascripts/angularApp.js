@@ -1,8 +1,25 @@
-var app = angular.module('Shoutbox', []);
+var app = angular.module('Shoutbox', ['ngRoute']);
 
-app.controller('MainCtrl', [
-	'$scope',
-	function($scope){
+app.config(function($routeProvider){
+  $routeProvider
+    //the timeline display
+    .when('/', {
+      templateUrl: 'main.html',
+      controller: 'mainController'
+    })
+    //the login display
+    .when('/login', {
+      templateUrl: 'login.html',
+      controller: 'authController'
+    })
+    //the signup display
+    .when('/register', {
+      templateUrl: 'register.html',
+      controller: 'authController'
+    });
+});
+
+app.controller('mainController', function($scope){
 		$scope.posts = [];
 		$scope.newPost = {created_by: '', text: '', created_at: ''};
 
@@ -11,7 +28,7 @@ app.controller('MainCtrl', [
 			$scope.posts.push($scope.newPost);
 			$scope.newPost = {created_by: '', text: '', created_at: ''};
 		};
-	}]);
+	});
 
 app.controller('authController', function($scope){
   $scope.user = {username: '', password: ''};

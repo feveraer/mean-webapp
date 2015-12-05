@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost/shoutbox');
 // Initialize models
 require('./models/models.js');
 
+var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 
@@ -39,6 +40,7 @@ app.use(passport.session());
 var initPassport = require('./passport-init');
 initPassport(passport);
 
+app.use('/', index);
 app.use('/auth', authenticate);
 app.use('/api', api);
 
