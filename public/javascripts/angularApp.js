@@ -1,4 +1,4 @@
-var app = angular.module('Shoutbox', ['ngRoute']).run(function($rootScope) {
+var app = angular.module('Shoutbox', ['ngRoute']).run(function($http, $rootScope) {
   $rootScope.authenticated = false;
   $rootScope.current_user = '';
 
