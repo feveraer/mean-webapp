@@ -29,6 +29,19 @@ app.config(function($routeProvider){
     });
   });
 
+//directive for user, used in login.html and register.html
+app.directive('user', function() {
+  var directive = {};
+  //new element
+  directive.restrict = 'E';
+  directive.template = "<input type='username' ng-model='user.username' placeholder='Username' class='form-control'><br>" +
+  "<input type='password' ng-model='user.password' placeholder='Password' class='form-control'><br>";
+  //use parent scope
+  directive.scope = false;
+
+  return directive;
+});
+
 //use $resource in postService factory, so we don't
 //have to manually call out to our endpoint with each type of request
 app.factory('postService', function($resource){
