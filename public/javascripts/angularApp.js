@@ -19,9 +19,7 @@ app.config(function($routeProvider){
     });
 });
 
-app.controller('MainCtrl', [
-	'$scope',
-	function($scope){
+app.controller('mainController', function($scope){
 		$scope.posts = [];
 		$scope.newPost = {created_by: '', text: '', created_at: ''};
 
@@ -30,7 +28,7 @@ app.controller('MainCtrl', [
 			$scope.posts.push($scope.newPost);
 			$scope.newPost = {created_by: '', text: '', created_at: ''};
 		};
-	}]);
+	});
 
 app.controller('authController', function($scope){
   $scope.user = {username: '', password: ''};
