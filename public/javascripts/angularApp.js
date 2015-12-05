@@ -1,4 +1,7 @@
-var app = angular.module('Shoutbox', ['ngRoute']);
+var app = angular.module('Shoutbox', ['ngRoute']).run(function($rootScope) {
+  $rootScope.authenticated = false;
+  $rootScope.current_user = '';
+});
 
 app.config(function($routeProvider){
   $routeProvider
@@ -30,7 +33,7 @@ app.controller('mainController', function($scope){
 		};
 	});
 
-app.controller('authController', function($scope){
+app.controller('authController', function($scope, $http, $rootScope, $location){
   $scope.user = {username: '', password: ''};
   $scope.error_message = '';
 
