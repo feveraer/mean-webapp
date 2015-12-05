@@ -29,9 +29,24 @@ app.config(function($routeProvider){
     });
 });
 
-app.controller('mainController', function($scope){
+//factory with a getAll function that calls out to our API
+//to get all the posts we already have using the $http service
+app.factory('postService', function($http){
+  var baseUrl = "/api/posts";
+  var factory = {};
+  factory.getAll = function(){
+    return $http.get(baseUrl);
+  };
+  return factory;
+});
+
+app.controller('mainController', function($scope, postService){
 		$scope.posts = [];
 		$scope.newPost = {created_by: '', text: '', created_at: ''};
+
+    postService.getAll().success(function(data) {
+      $scope.posts = data;
+    });
 
 		$scope.post = function(){
 			$scope.newPost.created_at = Date.now();
